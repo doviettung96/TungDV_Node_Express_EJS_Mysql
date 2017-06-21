@@ -1,58 +1,54 @@
 {
-  "name"           : "Node-Express-EJS-Mysql",
-  "version"        : "1.0.0",
-  "description"    : "A simple app with Node-Express-EJS-Mysql",
-  "main"           : "main.js",
-  "scripts"        : {
-    "start"         : "electron main.js",
-    "pack"          : "build --dir",
+  "name": "Node-Express-EJS-Mysql",
+  "version": "1.0.0",
+  "description": "A simple app with Node-Express-EJS-Mysql",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js",
+    "pack": "build --dir",
     "pack-installer": "build"
   },
-  "repository"     : "https://github.com/electron/electron-quick-start",
-  "keywords"       : [
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [
     "Electron",
     "quick",
     "start",
     "tutorial",
     "demo"
   ],
-  "author"         : "GitHub",
-  "license"        : "CC0-1.0",
+  "author": "GitHub",
+  "license": "CC0-1.0",
   "devDependencies": {
-    "electron"        : "^1.6.10",
-    "electron-builder": "^19.6.1"
+    "electron": "^1.6.10",
+    "electron-builder": "^19.6.1",
+    "electron-builder-squirrel-windows": "^19.6.0"
   },
-  "dependencies"   : {
+  "dependencies": {
     "body-parser": "^1.17.2",
-    "ejs"        : "^2.5.6",
-    "express"    : "^4.15.3",
-    "moment"     : "^2.18.1",
-    "mysql"      : "^2.13.0"
+    "ejs": "^2.5.6",
+    "express": "^4.15.3",
+    "moment": "^2.18.1",
+    "mysql": "^2.13.0"
   },
-  "build"          : {
-    "appId"          : "com.electron.desktopcature",
-    "productName"    : "DesktopCapture",
-    "mac"            : {
-      "target"  : [
+  "build": {
+    "appId": "com.electron.desktopcature",
+    "productName": "DesktopCapture",
+    "mac": {
+      "target": [
         "zip",
         "dmg"
       ],
       "category": "your.app.category.type",
-      "icon"    : "icon/icon.icns"
-    },
-    "dmg"            : {
       "icon": "icon/icon.icns"
     },
-    "win"            : {
+    "dmg": {
+      "icon": "icon/icon.icns"
+    },
+    "win": {
       "target": [
-        "nsis",
         "squirrel"
       ],
-      "icon"  : "icon/icon.ico"
-    },
-    "nsis"           : {
-      "oneClick": false,
-      "icon"    : "icon/icon.ico"
+      "icon": "icon/icon.ico"
     },
     "squirrelWindows": {
       "iconUrl": "http://timesheet.dev.ows.vn/images/icon.ico"
