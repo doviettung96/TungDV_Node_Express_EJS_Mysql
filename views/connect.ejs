@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+            <title>Connect</title>
+    </head>
+    <body>
+        <h1>Connecting to MySQL</h1>
+        <br>
+            <form method="post" action="/connect" enctype="application/x-www-form-urlencoded">
+                <label>Database:</label><br>
+                <input type="text" name="db_name" /><br>
+                <label>Username:</label><br>
+                <input type="text" name="user_name" /><br>
+                <label>Password:</label><br>
+                <input type="password" name="password" /><br>
+                <label>Host:</label><br>
+                <input type="text" name="host" value="localhost" /><br>
+                <label>Port:</label><br>
+                <input type="text" name="port" value="3306"/><br>
+
+            <input type="submit" value="Connect to DB"/>
+            </form>
+    </body>
+    <script>
+        var fail = <%- JSON.stringify(fail) %>;
+        if(fail){
+        alert('Failed');
+    }
+    </script>
+</html>
