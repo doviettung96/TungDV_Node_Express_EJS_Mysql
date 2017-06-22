@@ -18,11 +18,14 @@ const bodyParser = require("body-parser");
 let mainWindow;
 let e = express();
 // Tells express where the parent of the /views folder is.
-e.use("/views", express.static(__dirname));
+var publicPath = path.resolve(__dirname, './views');
+// express use the public path
+e.use(express.static(publicPath));
 e.use(bodyParser.urlencoded());
 
 // Tells express to use the EJS templating module to serve views.
-
+e.set('views', path.join(__dirname, './views'));
+// set the view engine
 e.set("view engine", "ejs");
 // Tells express the local port to serve on!
 e.listen(10000);
