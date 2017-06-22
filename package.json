@@ -1,6 +1,6 @@
 {
   "name": "Node-Express-EJS-Mysql",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple app with Node-Express-EJS-Mysql",
   "main": "main.js",
   "scripts": {
