@@ -12,8 +12,22 @@ const BrowserWindow = electron.BrowserWindow;
 
 const path = require("path");
 const url = require("url");
+const log = require('electron-log');
 
 const bodyParser = require("body-parser");
+
+//-------------------------------------------------------------------
+// Logging
+//
+// THIS SECTION IS NOT REQUIRED
+//
+// This logging setup is not required for auto-updates to work,
+// but it sure makes debugging easier :)
+//-------------------------------------------------------------------
+autoUpdater.logger = log;
+autoUpdater.logger.transports.file.level = 'info';
+log.info('App starting...');
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
@@ -31,6 +45,10 @@ e.set("view engine", "ejs");
 // Tells express the local port to serve on!
 e.listen(10000);
 // 'index' is describing our index.ejs file!
+function sendStatusToWindow(text) {
+    log.info(text);
+    mainWindow.webContents.send('message', text);
+}
 
 function createWindow() {
     // Create the browser window.
@@ -46,7 +64,7 @@ function createWindow() {
     mainWindow.focus();
 
     // Open the DevTools.
-    // mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
 
     // Emitted when the window is closed.
     mainWindow.on("closed", function () {
