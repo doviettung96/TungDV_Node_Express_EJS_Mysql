@@ -71,7 +71,7 @@ e.post("/connect", (req, res) => {
     let connectParam = req.body;
     connectDB(connectParam).then(() => {
         res.render("login", { fail: false });
-    }).catch((err) => {
+    }).catch(() => {
         res.render("connect", { fail: true });
     });
 });
