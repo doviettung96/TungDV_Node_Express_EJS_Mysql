@@ -69,12 +69,11 @@ e.get("/connect", (req, res) => {
 
 e.post("/connect", (req, res) => {
     let connectParam = req.body;
-    connectDB(connectParam).then((response) => {
+    connectDB(connectParam).then(() => {
         res.render("login", { fail: false });
+    }).catch((err) => {
+        res.render("connect", { fail: true });
     });
-    // }).catch((err) => {
-    //     res.render("connect", { fail: true });
-    // });
 });
 
 e.post("/login", (req, res) => {
