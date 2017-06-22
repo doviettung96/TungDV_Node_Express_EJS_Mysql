@@ -1,5 +1,6 @@
 const electron = require("electron");
 const autoUpdater = require("electron-updater").autoUpdater;
+const isDev = require('electron-is-dev');
 const express = require("express");
 // Module to control application life.
 const mysql = require("mysql");
@@ -153,7 +154,11 @@ e.get("/home", () => {
 
 // check auto update when app is ready
 app.on("ready", function(){
-    autoUpdater.checkForUpdates();
+    if(isDev){
+        sendStatusToWindow('Run in dev')
+    }else{
+        autoUpdater.checkForUpdates();
+    }
 })
 
 // Quit when all windows are closed.
