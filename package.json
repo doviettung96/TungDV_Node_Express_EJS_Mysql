@@ -28,11 +28,19 @@
     "ejs": "^2.5.6",
     "express": "^4.15.3",
     "moment": "^2.18.1",
-    "mysql": "^2.13.0"
+    "mysql": "^2.13.0",
+    "electron-updater": "^2.4.1"
   },
   "build": {
     "appId": "com.electron.nodeejsexpress",
     "productName": "NodeEjsExpress",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "doviettung96",
+        "repo": "TungDV_Node_Express_EJS_Mysql"
+      }
+    ],
     "mac": {
       "target": [
         "zip",

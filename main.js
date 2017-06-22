@@ -1,4 +1,5 @@
 const electron = require("electron");
+const autoUpdater = require("electron-updater").autoUpdater;
 const express = require("express");
 // Module to control application life.
 const mysql = require("mysql");
@@ -61,6 +62,39 @@ function createWindow() {
 // Some APIs can only be used after this event occurs.
 app.on("ready", createWindow);
 
+// This part is for auto updater
+autoUpdater.on('checking-for-update', () => {
+    sendStatusToWindow('Checking for update...');
+})
+autoUpdater.on('update-available', (ev, info) => {
+    sendStatusToWindow('Update available.');
+})
+autoUpdater.on('update-not-available', (ev, info) => {
+    sendStatusToWindow('Update not available.');
+})
+autoUpdater.on('error', (ev, err) => {
+    sendStatusToWindow('Error in auto-updater.');
+})
+autoUpdater.on('download-progress', (progressObj) => {
+    let log_message = "Download speed: " + progressObj.bytesPerSecond;
+    log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
+    log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+    sendStatusToWindow(log_message);
+})
+autoUpdater.on('update-downloaded', (ev, info) => {
+    sendStatusToWindow('Update downloaded; will install in 5 seconds');
+});
+
+autoUpdater.on('update-downloaded', (ev, info) => {
+    // Wait 5 seconds, then quit and install
+    // In your application, you don't need to wait 5 seconds.
+    // You could call autoUpdater.quitAndInstall(); immediately
+    setTimeout(function() {
+        autoUpdater.quitAndInstall();
+    }, 5000)
+})
+// This part is for express
+
 e.get("/", (req, res) => {
     res.render("index");
 });
@@ -99,6 +133,10 @@ e.get("/home", () => {
     console.log("Login success");
 });
 
+// check auto update when app is ready
+app.on("ready", function(){
+    autoUpdater.checkForUpdates();
+})
 
 // Quit when all windows are closed.
 app.on("window-all-closed", function () {
