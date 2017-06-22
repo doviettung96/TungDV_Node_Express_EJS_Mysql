@@ -25,7 +25,7 @@ e.use(bodyParser.urlencoded());
 
 e.set("view engine", "ejs");
 // Tells express the local port to serve on!
-e.listen(3000);
+e.listen(10000);
 // 'index' is describing our index.ejs file!
 
 function createWindow() {
@@ -38,7 +38,7 @@ function createWindow() {
     //   protocol: 'file:',
     //   slashes: true
     // }))
-    mainWindow.loadURL("http://localhost:3000");
+    mainWindow.loadURL("http://localhost:10000");
     mainWindow.focus();
 
     // Open the DevTools.
@@ -64,20 +64,17 @@ e.get("/", (req, res) => {
 
 
 e.get("/connect", (req, res) => {
-    res.render("connect", {fail: false});
+    res.render("connect", { fail: false });
 });
 
 e.post("/connect", (req, res) => {
     let connectParam = req.body;
-    connectDB(connectParam);
-    setTimeout(() => {
-        if(e.locals.users){
-            res.render("login", {fail: false});
-        }else{
-            res.render("connect", {fail: true});
-        }
-    }, 150);
-
+    connectDB(connectParam).then((response) => {
+        res.render("login", { fail: false });
+    });
+    // }).catch((err) => {
+    //     res.render("connect", { fail: true });
+    // });
 });
 
 e.post("/login", (req, res) => {
@@ -88,12 +85,12 @@ e.post("/login", (req, res) => {
             && user.user_password == login_entry.user_password;
     });
     console.log(findResult);
-    if (findResult.length > 0){
+    if (findResult.length > 0) {
         res.render("home");
     }
-    else{
-        res.render("login", {fail: true});
-        console.log('Login failed');
+    else {
+        res.render("login", { fail: true });
+        console.log("Login failed");
     }
 });
 
@@ -123,37 +120,46 @@ app.on("activate", function () {
 // code. You can also put them in separate files and require them here.
 
 let connectDB = function (param) {
+    let result = [];
     // Add the credentials to access your database
-    let connection = mysql.createConnection({
-        host    : param.host,
-        user    : param.user_name,
-        password: param.password,
-        database: param.db_name,
-        port    : param.port
-    });
+    return new Promise((resolve, reject) => {
 
-    // connect to mysql
-    connection.connect( (err) => {
-        // in case of error
-        if (err) {
-            console.log(err.code);
-            console.log(err.fatal);
-        }
-    });
+        let connection = mysql.createConnection({
+            host    : param.host,
+            user    : param.user_name,
+            password: param.password,
+            database: param.db_name,
+            port    : param.port
+        });
 
-    // Perform a query
-    $query = " SELECT `user_name`, `user_password` FROM `user` LIMIT 10";
+        // connect to mysql
+        connection.connect((err) => {
+            // in case of error
+            if (err) {
+                console.log(err.code);
+                console.log(err.fatal);
 
-    connection.query($query, (err, rows, fields) => {
-        if (err) {
-            console.log("An error ocurred performing the query.");
-            console.log(err);
-        }
-        e.locals.users = rows;
-    });
+                reject(err);
+            }
+        });
 
-    // Close the connection
-    connection.end(() => {
-        // The connection has been closed
+        // Perform a query
+        $query = " SELECT `user_name`, `user_password` FROM `user` LIMIT 10";
+
+        connection.query($query, (err, rows, fields) => {
+            if (err) {
+                console.log("An error ocurred performing the query.");
+                console.log(err);
+                reject(err);
+            }
+            e.locals.users = rows;
+            result = rows;
+        });
+
+        // Close the connection
+        connection.end(() => {
+            resolve(result);
+            // The connection has been closed
+        });
     });
 };
