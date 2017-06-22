@@ -42,7 +42,7 @@ function createWindow() {
     mainWindow.focus();
 
     // Open the DevTools.
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
 
     // Emitted when the window is closed.
     mainWindow.on("closed", function () {
@@ -83,7 +83,6 @@ e.post("/login", (req, res) => {
         return user.user_name == login_entry.user_name
             && user.user_password == login_entry.user_password;
     });
-    console.log(findResult);
     if (findResult.length > 0) {
         res.render("home");
     }
