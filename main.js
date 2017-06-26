@@ -15,7 +15,7 @@ const url = require("url");
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
-
+let updaterError = false;
 // this part is for autoupdater
 const updateFeed = "https://github.com/doviettung96/TungDV_Node_Express_EJS_Mysql/releases";
 
@@ -23,7 +23,7 @@ autoUpdater.on('update-downloaded', () => {
     autoUpdater.quitAndInstall();
 })
 autoUpdater.on("error", (ev, err) => {
-    console.log(err);
+    updaterError = true;
 });
 
 // This method will be called when Electron has finished
@@ -73,7 +73,8 @@ let createWindow = function () {
     mainWindow.focus();
 
     // Open the DevTools.
-    mainWindow.webContents.openDevTools();
+    if(updaterError)
+        mainWindow.webContents.openDevTools();
 
     // Emitted when the window is closed.
     mainWindow.on("closed", function () {
