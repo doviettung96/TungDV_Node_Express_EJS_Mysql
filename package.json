@@ -1,6 +1,6 @@
 {
   "name": "Node-Express-EJS-Mysql",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "A simple app with Node-Express-EJS-Mysql",
   "main": "main.js",
   "scripts": {
@@ -64,7 +64,6 @@
     },
     "win": {
       "target": [
-        "squirrel",
         "NSIS"
       ],
       "icon": "icon/icon.ico"
