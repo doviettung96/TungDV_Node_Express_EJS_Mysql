@@ -1,30 +1,23 @@
 require('./route');
+require('./autoupdater');
 const electron = require("electron");
 const isDev = require("electron-is-dev");
 // Module to control application life.
 
 const app = electron.app;
-const autoUpdater = require('electron-updater').autoUpdater;
+const autoUpdater = require('./autoupdater');
 
 // initialize ejs parser
 
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
 const url = require("url");
-
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
-let updaterError = false;
 // this part is for autoupdater
-const updateFeed = "https://github.com/doviettung96/TungDV_Node_Express_EJS_Mysql/releases";
 
-autoUpdater.on('update-downloaded', () => {
-    autoUpdater.quitAndInstall();
-})
-autoUpdater.on("error", (ev, err) => {
-    updaterError = true;
-});
+
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -73,7 +66,6 @@ let createWindow = function () {
     mainWindow.focus();
 
     // Open the DevTools.
-    if(updaterError)
         mainWindow.webContents.openDevTools();
 
     // Emitted when the window is closed.
@@ -84,3 +76,5 @@ let createWindow = function () {
         mainWindow = null;
     });
 };
+
+
