@@ -59,5 +59,7 @@ e.post("/login", (req, res) => {
 });
 
 e.get("/home", () => {
-    console.log("Login success");
+    let connection = e.locals.connection;
+    database.closeConnection(connection);
+    console.log('Login success. Close connection to database');
 });

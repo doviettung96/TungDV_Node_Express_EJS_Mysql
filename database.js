@@ -1,3 +1,5 @@
+const mysql = require("mysql");
+
 let connectDB = function (param) {
     // Add the credentials to access your database
     return new Promise((resolve, reject) => {
@@ -19,8 +21,8 @@ let connectDB = function (param) {
 
                 reject(err);
             }
+            resolve(connection);
         });
-        resolve(connection);
     });
 };
 
@@ -36,14 +38,18 @@ let querryUsers = function (connection) {
                 reject(err);
             }
             result = rows;
-        });
-        // Close the connection
-        connection.end(() => {
             resolve(result);
-            // The connection has been closed
         });
+    });
+};
+
+let closeConnection = function (connection) {
+    // Close the connection
+    connection.end(() => {
+        // The connection has been closed
     });
 };
 
 exports.connectDB = connectDB;
 exports.querryUsers = querryUsers;
+exports.closeConnection = closeConnection;

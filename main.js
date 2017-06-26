@@ -2,7 +2,6 @@ require('./route');
 const electron = require("electron");
 const isDev = require("electron-is-dev");
 // Module to control application life.
-const mysql = require("mysql");
 
 const app = electron.app;
 const autoUpdater = require('electron-updater').autoUpdater;
