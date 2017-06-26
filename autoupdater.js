@@ -19,29 +19,40 @@ autoUpdater.on('error', (event, error) => {
 autoUpdater.on('update-available', () => {
   dialog.showMessageBox({
     type: 'info',
-    title: 'Found Updates',
+    title: 'Found updates',
     message: 'Found updates, do you want update now?',
     buttons: ['Sure', 'No']
   }, (buttonIndex) => {
     if (buttonIndex === 0) {
       autoUpdater.downloadUpdate()
+      dialog.showMessageBox({
+        title: 'Downloading',
+        message: 'The update is being downloaded. Please wait.'
+      })
     } 
   })
 })
 
 autoUpdater.on('update-not-available', () => {
   dialog.showMessageBox({
-    title: 'No Updates', 
+    title: 'No updates', 
     message: 'Current version is up-to-date.'
   })
 })
 
 autoUpdater.on('update-downloaded', () => {
   dialog.showMessageBox({
-    title: 'Install Updates',
+    title: 'Install updates',
     message: 'Updates downloaded, application will be quit for update...'
   }, () => {
     autoUpdater.quitAndInstall()
+  })
+})
+
+autoUpdater.on('checking-for-update', () => {
+  dialog.showMessageBox({
+    title: 'Check for updates', 
+    message: 'The app is checking for updates. Wait for a second'
   })
 })
 
