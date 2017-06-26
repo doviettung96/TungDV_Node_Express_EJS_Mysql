@@ -6,7 +6,8 @@ const isDev = require("electron-is-dev");
 
 const app = electron.app;
 const autoUpdater = require('./autoupdater');
-
+const Menu = electron.Menu;
+const MenuItem = electron.MenuItem;
 // initialize ejs parser
 
 // Module to create native browser window.
@@ -17,7 +18,9 @@ const url = require("url");
 let mainWindow;
 // this part is for autoupdater
 
-
+const menu = new Menu();
+menu.append(new MenuItem({label: 'Updater', click() { autoUpdater.checkForUpdates() }}));
+Menu.setApplicationMenu(menu);
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
