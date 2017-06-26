@@ -1,4 +1,5 @@
-const electron = require("electron");
+const  electron = require("electron");
+const {Menu} = require('electron');
 const autoUpdater = require("electron-updater").autoUpdater;
 const isDev = require('electron-is-dev');
 const express = require("express");
@@ -80,6 +81,11 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on("ready", createWindow);
+// check auto update when app is ready
+app.on("ready", function(){
+    autoUpdater.setFeedURL('https://github.com/doviettung96/TungDV_Node_Express_EJS_Mysql/releases/download/v1.0.5/Node-Express-EJS-Mysql-Setup-1.0.5.exe');
+    autoUpdater.checkForUpdates();
+})
 
 // This part is for auto updater
 autoUpdater.on('checking-for-update', () => {
@@ -112,6 +118,8 @@ autoUpdater.on('update-downloaded', (ev, info) => {
         autoUpdater.quitAndInstall();
     }, 5000)
 })
+
+
 // This part is for express
 
 e.get("/", (req, res) => {
@@ -152,14 +160,6 @@ e.get("/home", () => {
     console.log("Login success");
 });
 
-// check auto update when app is ready
-app.on("ready", function(){
-    if(isDev){
-        sendStatusToWindow('Run in dev')
-    }else{
-        autoUpdater.checkForUpdates();
-    }
-})
 
 // Quit when all windows are closed.
 app.on("window-all-closed", function () {
