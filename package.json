@@ -1,6 +1,6 @@
 {
   "name": "Node-Express-EJS-Mysql",
-  "version": "1.0.17",
+  "version": "1.0.20",
   "description": "A simple app with Node-Express-EJS-Mysql",
   "main": "main.js",
   "scripts": {
@@ -16,12 +16,13 @@
     "tutorial",
     "demo"
   ],
-  "author": "GitHub",
+  "author": "tungdv",
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^1.6.10",
     "electron-builder": "^19.6.1",
-    "electron-builder-squirrel-windows": "^19.6.0"
+    "electron-builder-squirrel-windows": "^19.6.0",
+    "http-server": "^0.10.0"
   },
   "dependencies": {
     "auto-updater": "^1.0.2",
@@ -40,9 +41,8 @@
     "productName": "NodeEjsExpress",
     "publish": [
       {
-        "provider": "github",
-        "owner": "doviettung96",
-        "repo": "TungDV_Node_Express_EJS_Mysql"
+        "provider": "generic",
+        "url": "http://10.10.0.126:8080/"
       }
     ],
     "mac": {

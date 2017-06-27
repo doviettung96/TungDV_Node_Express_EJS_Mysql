@@ -69,8 +69,9 @@ let createWindow = function () {
     mainWindow.focus();
 
     // Open the DevTools.
-    mainWindow.webContents.openDevTools();
-
+    if(isDev){
+        mainWindow.webContents.openDevTools();
+    }
     // Emitted when the window is closed.
     mainWindow.on("closed", function () {
         // Dereference the window object, usually you would store windows
