@@ -19,7 +19,7 @@
   "author": "tungdv",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^1.6.10",
+    "electron": "^7.2.4",
     "electron-builder": "^19.6.1",
     "electron-builder-squirrel-windows": "^19.6.0",
     "http-server": "^0.10.0"
