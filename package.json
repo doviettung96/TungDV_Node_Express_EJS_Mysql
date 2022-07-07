@@ -33,7 +33,7 @@
     "electron-log": "^2.2.6",
     "electron-updater": "^2.4.1",
     "express": "^4.15.3",
-    "moment": "^2.18.1",
+    "moment": "^2.29.4",
     "mysql": "^2.13.0"
   },
   "build": {
